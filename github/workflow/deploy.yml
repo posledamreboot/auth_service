@@ -1,0 +1,36 @@
+name: deploy
+
+on:
+  push:
+    branches: [ "prod" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file from secrets
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+      
+      - name: Build auth image
+        run: docker-compose build
+
+      - name: Stop and remove old containers
+        run: |
+          docker-compose down
+
+      - name: Deploy new microservice
+        run: docker-compose up -d
+
+      - name: Clean up unused images
+        run: docker image prune -f
+
+      - name: Verify deployment
+        run: |
+          echo "=== Deployment Status ==="
+          docker ps --filter "name=auth_service"
