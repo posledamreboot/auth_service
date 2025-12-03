@@ -9,8 +9,8 @@ app = FastAPI(
     title="По следам — Auth Service",
     description="Микросервис аутентификации для мобильного приложения «По следам»",
     version="1.0.0",
-    docs_url="/docs",       
-    redoc_url="/redoc",      
+    docs_url="/docs",
+    redoc_url="/redoc",
     openapi_url="/openapi.json",
 )
 
