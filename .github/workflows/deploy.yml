@@ -16,6 +16,9 @@ jobs:
         run: |
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
+          echo "ACCESS_TOKEN_EXPIRE_HOURS=${{ secrets.ACCESS_TOKEN_EXPIRE_HOURS }}" >> .env
       
       - name: Build auth image
         run: docker-compose build
