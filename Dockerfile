@@ -22,7 +22,7 @@ COPY . .
 RUN useradd --create-home --shell /bin/bash app
 USER app
 
-EXPOSE 8001
+EXPOSE 8000
 
 # По умолчанию запускаем сервис ауфа
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
