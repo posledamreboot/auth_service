@@ -19,13 +19,13 @@ jobs:
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
           echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
           echo "ACCESS_TOKEN_EXPIRE_HOURS=${{ secrets.ACCESS_TOKEN_EXPIRE_HOURS }}" >> .env
-      
+
       - name: Build auth image
         run: docker-compose build
 
       - name: Stop and remove old containers
         run: |
-          docker-compose down
+          docker-compose down --remove-orphans
 
       - name: Deploy new microservice
         run: docker-compose up -d
@@ -36,4 +36,4 @@ jobs:
       - name: Verify deployment
         run: |
           echo "=== Deployment Status ==="
-          docker ps --filter "name=auth_service"
+          docker ps --filter "name=user_service"
