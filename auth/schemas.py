@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, validator
 
 
 class UserCreate(BaseModel):
@@ -41,7 +41,7 @@ class UserProfileUpdate(BaseModel):
     gender: Optional[str] = Field(None, example="male")
     profile_image_url: Optional[str] = Field(None, example="https://example.com/profile.jpg")
 
-    @field_validator('gender')
+    @validator('gender')
     def validate_gender(self, v):
         if v and v.lower() not in ('male', 'female', 'other'):
             raise ValueError('Gender must be male, female, or other')
