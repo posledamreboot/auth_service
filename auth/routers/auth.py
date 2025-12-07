@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from auth.schemas import UserCreate, UserLogin, Token
+
 from auth.crud import get_user_by_email, create_user
+from auth.deps import get_db
+from auth.models import User
+from auth.schemas import UserCreate, UserLogin, Token
 from auth.utils import verify_password
 from core.security import create_access_token
-from auth.deps import get_db, get_current_user
-from auth.models import User
-
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -80,8 +80,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     response_description="Список пользователей"
 )
 def list_users(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+        db: Session = Depends(get_db)
 ):
     users = db.query(User).all()
     return [{"id": u.id, "email": u.email} for u in users]

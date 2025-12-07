@@ -36,4 +36,4 @@ jobs:
       - name: Verify deployment
         run: |
           echo "=== Deployment Status ==="
-          docker ps --filter "name=auth_service"
+          docker ps --filter "name=user_service"
