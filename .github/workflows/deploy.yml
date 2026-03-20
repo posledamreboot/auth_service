@@ -21,14 +21,14 @@ jobs:
           echo "ACCESS_TOKEN_EXPIRE_HOURS=${{ secrets.ACCESS_TOKEN_EXPIRE_HOURS }}" >> .env
 
       - name: Build auth image
-        run: docker-compose build
+        run: docker compose build
 
       - name: Stop and remove old containers
         run: |
-          docker-compose down --remove-orphans
+          docker compose down --remove-orphans
 
       - name: Deploy new microservice
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Clean up unused images
         run: docker image prune -f
